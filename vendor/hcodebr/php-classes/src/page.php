@@ -18,7 +18,7 @@ class Page
 		$config = array(
 					"tpl_dir"       => $_SERVER["DOCUMENT_ROOT"].$tpl_dir,
 					"cache_dir"     => $_SERVER["DOCUMENT_ROOT"]."/views-cache/",
-				   );
+				);
 		Tpl::configure( $config );
 		$this->tpl = new Tpl;
 		$this->setData($this->options["data"]);
@@ -26,7 +26,7 @@ class Page
 		{
 			$this->tpl->assign($key, $value);
 		}
-		if ($this->options["header"] === true) $this->tpl->draw('header');
+		if ($this->options["header"] === true) $this->tpl->draw("header");
 	}
 	private function setData($data = array())
 	{
