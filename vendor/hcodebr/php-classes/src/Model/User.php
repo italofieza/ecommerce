@@ -2,6 +2,7 @@
 namespace Hcode\Model;
 use \Hcode\DB\Sql;
 use \Hcode\Model;
+use \Hcode\Mailer;
 class User extends Model {
     const SESSION = "User";
 	const SECRET = "HcodePhp7_Secret";
@@ -41,7 +42,6 @@ class User extends Model {
         }
     }
     public static function logout(){
-        
         $_SESSION[User::SESSION] = NULL;
     }
     public static function listAll(){
@@ -144,7 +144,7 @@ class User extends Model {
                 a.dtrecovery IS NULL
                 AND
                 DATE_ADD(a.dtregrister, INTERVAL 1 HOUR) >= NOW();
-		", array()
+		", array(
 			":idrecovery"=>$idrecovery
 		));
 	    if (count($results) ===0)
