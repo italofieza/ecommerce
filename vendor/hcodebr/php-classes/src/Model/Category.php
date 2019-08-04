@@ -41,5 +41,42 @@ public static function updatefile(){
 	}
 	file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOE."categories-menu.html", implode('',$html));
 	}
+public function getProducts($related = true){
+		$sql = new Sql();
+		if ($related === true) {
+			return $sql-> select ("SELECT *
+               FROM tb_products WHERE idproduct IN(
+               SELECT a.idproduct
+               INNER JOIN tb_productscategories b ON a.idproduct = b.idproduct;
+               WHERE b.idcategory = :idcategory
+			);
+		", [
+			'idcategory'=>$this->getidcategory()
+		]);
+	}else{
+			return $sql-> select ("SELECT *
+               FROM tb_products WHERE idproduct NOT IN(
+               SELECT a.idproduct
+               INNER JOIN tb_productscategories b ON a.idproduct = b.idproduct;
+               WHERE b.idcategory = :idcategory
+			);
+		", [
+			'idcategory'=>$this->getidcategory()
+		]);
+	}
+}
+public function addProduct(Product, $product){
+	$sql = new Sql();
+	$sql->query("INSERT INTO tb_productscategories (idcategory, idproduct) VALUES(:idcategory, :idproduct)", [
+		':idcategory'=>$this->getidcategory(),
+		':idproduct'=>$product->getidproduct()
+	]);
+}
+public function removeProduct(Product, $product){
+	$sql = new Sql();
+	$sql->query("DELETE FROM tb_productscategories WHERE idcategory = idproduct AND :idcategory= :idproduct", [
+		':idcategory'=>$this->getidcategory(),
+		':idproduct'=>$product->getidproduct()
+	]);
 }
 ?>
