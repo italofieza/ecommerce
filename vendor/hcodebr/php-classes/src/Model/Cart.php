@@ -7,7 +7,8 @@ use \Hcode\Model\User;
 class Cart extends Model {
 	const SESSION = "Cart";
 	const SESSION_ERROR = "CartError";
-	public static function getFromSession(){
+	public static function getFromSession()
+	{
 		$cart = new Cart();
 		if (isset($_SESSION[Cart::SESSION]) && (int)$_SESSION[Cart::SESSION]['idcart'] > 0) {
 			$cart->get((int)$_SESSION[Cart::SESSION]['idcart']);
@@ -19,12 +20,13 @@ class Cart extends Model {
 				];
 				if (User::checkLogin(false)) {
 					$user = User::getFromSession();
-					
 					$data['iduser'] = $user->getiduser();	
 				}
 				$cart->setData($data);
+
 				$cart->save();
 				$cart->setToSession();
+
 			}
 		}
 		return $cart;
@@ -41,7 +43,8 @@ class Cart extends Model {
 			$this->setData($results[0]);
 		}
 	}	
-	public function get(int $idcart){
+	public function get(int $idcart)
+	{
 		$sql = new Sql();
 		$results = $sql->select("SELECT * FROM tb_carts WHERE idcart = :idcart", [
 			':idcart'=>$idcart
@@ -150,6 +153,7 @@ class Cart extends Model {
 			$this->save();
 			return $result;
 		} else {
+//       Vazio
 		}
 	}
 	public static function formatValueToDecimal($value):float{

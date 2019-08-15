@@ -46,6 +46,7 @@
                 </thead>
                 <tbody>
                   <?php $counter1=-1;  if( isset($users) && ( is_array($users) || $users instanceof Traversable ) && sizeof($users) ) foreach( $users as $key1 => $value1 ){ $counter1++; ?>
+
                   <tr>
                     <td><?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $value1["desperson"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
@@ -59,6 +60,7 @@
                     </td>
                   </tr>
                   <?php } ?>
+
                 </tbody>
               </table>
             </div>
@@ -66,8 +68,10 @@
             <div class="box-footer clearfix">
               <ul class="pagination pagination-sm no-margin pull-right">
                 <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
+
                 <li><a href="<?php echo htmlspecialchars( $value1["href"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
                 <?php } ?>
+
               </ul>
             </div>
           </div>
